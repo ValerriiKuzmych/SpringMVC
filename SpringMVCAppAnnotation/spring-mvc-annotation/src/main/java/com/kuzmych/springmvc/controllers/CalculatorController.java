@@ -21,7 +21,7 @@ public class CalculatorController {
 			int intValue1 = Integer.parseInt(value1);
 			int intValue2 = Integer.parseInt(value2);
 
-			int result;
+			double result;
 			if (action.equals("/")) {
 				result = intValue1 / intValue2;
 			} else if (action.equals("*")) {
