@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
-@ComponentScan("/spring-app-crudrestdao/src/main/java")
+@ComponentScan("{spring.app.mvc.crudrestdao.java.config, models, dao, controllers}")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
