@@ -6,6 +6,7 @@ import com.kuzmych.spring.models.Person;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,30 +61,92 @@ public class PersonDAO {
 
 	}
 
-	/*
-	 * public Person show(int id) { for (Person person : people) { if
-	 * (person.getId() == id) { return person; } } return null; }
-	 */
+	public Person show(int id) {
 
-	public void save(Person person) {
-		
-		
+		Person person = null;
+
+		PreparedStatement preparedStatement;
+
+		try {
+
+			preparedStatement = connection.prepareStatement("SELECT * FROM Persons WHERE id = ?");
+
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			resultSet.next();
+
+			person = new Person();
+
+			person.setId(resultSet.getInt("id"));
+			person.setAge(resultSet.getInt("age"));
+			person.setName(resultSet.getString("name"));
+			person.setEmail(resultSet.getString("email"));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return person;
+
 	}
 
-	/*
-	 * public void update(int id, Person updatedPerson) { Person personToBeUpdated =
-	 * show(id);
-	 * 
-	 * personToBeUpdated.setName(updatedPerson.getName());
-	 * personToBeUpdated.setAge(updatedPerson.getAge());
-	 * personToBeUpdated.setEmail(updatedPerson.getEmail());
-	 * 
-	 * }
-	 */
+	public void save(Person person) {
 
-	/*
-	 * public void delete(int id) { Iterator<Person> iterator = people.iterator();
-	 * while (iterator.hasNext()) { Person person = iterator.next(); if
-	 * (person.getId() == id) { iterator.remove(); break; } } }
-	 */
+		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.prepareStatement("INSERT INTO Persons VALUES (?, ?, ?, ?)");
+
+			preparedStatement.setInt(2, person.getAge());
+			preparedStatement.setString(3, person.getName());
+			preparedStatement.setString(4, person.getEmail());
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void update(int id, Person updatedPerson) {
+
+		PreparedStatement preparedStatement;
+
+		try {
+
+			preparedStatement = connection.prepareStatement("UPDATE Persons SET age=?, name=?, email=? WHERE id=?");
+
+			preparedStatement.setInt(1, updatedPerson.getAge());
+			preparedStatement.setString(2, updatedPerson.getName());
+			preparedStatement.setString(3, updatedPerson.getEmail());
+			preparedStatement.setInt(4, updatedPerson.getId());
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void delete(int id) {
+		PreparedStatement preparedStatement;
+
+		try {
+
+			preparedStatement = connection.prepareStatement("DELETE FROM Persons WHERE id=?");
+
+			preparedStatement.setInt(1, id);
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

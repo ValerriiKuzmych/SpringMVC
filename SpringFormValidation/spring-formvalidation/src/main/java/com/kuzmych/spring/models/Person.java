@@ -6,26 +6,23 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class Person {
-	
-	
-    private int id;
-    
-    @Min(value = 18, message = "Age should be greater tha 18")
-    private int age;
-    @NotEmpty(message = "Email should be not empty")
-    @Email(message = "Email should be valid")
-    private String email;
-    @NotEmpty(message = "Name should not be empty" )
-    @Size(min = 2, max = 30, message = "Name shuld be between 2 and 30 characters" )
-    private String name;
-    
-   
 
-    public Person() {
+	private int id;
 
-    }
+	@Min(value = 18, message = "Age should be greater tha 18")
+	private int age;
+	@NotEmpty(message = "Email should be not empty")
+	@Email(message = "Email should be valid")
+	private String email;
+	@NotEmpty(message = "Name should not be empty")
+	@Size(min = 2, max = 30, message = "Name shuld be between 2 and 30 characters")
+	private String name;
 
-    public Person(int id, int age, String email, String name) {
+	public Person() {
+
+	}
+
+	public Person(int id, int age, String email, String name) {
 
 		this.id = id;
 		this.age = age;
@@ -33,16 +30,15 @@ public class Person {
 		this.name = name;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }    
-    public int getAge() {
+	public int getAge() {
 		return age;
 	}
 
@@ -58,13 +54,11 @@ public class Person {
 		this.email = email;
 	}
 
-	
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }
